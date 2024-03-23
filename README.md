@@ -7,6 +7,11 @@ projects.
 
 In addition, the repository syncs the dashboards to [Grafana.com](https://grafana.com/orgs/cloudnativepg).
 
+## Dashboards
+
+* [CloudNativePG Cluster Dashboard](charts/cluster/grafana-dashboard.json) 
+
+
 ## Repository
 
 ```bash
@@ -23,7 +28,7 @@ dependencies:
     repository: "oci://ghcr.io/cloudnative-pg/grafana-dashboards/cluster"
 ```
 
-## Provenance
+### Provenance
 
 The charts support Helm Provenance and Integrity. 
 Here is a link to the [PGP key](provenance.gpg) used by GitHub Actions to sign the charts.

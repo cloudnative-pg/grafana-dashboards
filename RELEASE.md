@@ -53,3 +53,4 @@ In order to create a new release of any chart, follow these steps:
     helm search repo cnpg
     ```
     and be able to see the new version `X.Y.Z` as `CHART VERSION` for `cluster`
+14. Update the chart on [Grafana.com](https://grafana.com/orgs/cloudnativepg/dashboards/20417/edit).

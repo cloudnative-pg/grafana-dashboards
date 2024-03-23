@@ -47,12 +47,13 @@ dependencies:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| annotations | object | `{}` | Annotations that ConfigMaps can have to get configured in Grafana, See: sidecar.dashboards.folderAnnotation for specifying the dashboard folder. https://github.com/grafana/helm-charts/tree/main/charts/grafana |
-| configMapName | string | `"cnpg-grafana-dashboard"` | The name of the ConfigMap containing the dashboard. |
 | fullnameOverride | string | `""` |  |
+| grafanaDashboard.annotations | object | `{}` | Annotations that ConfigMaps can have to get configured in Grafana. |
+| grafanaDashboard.configMapName | string | `"cnpg-grafana-dashboard"` | The name of the ConfigMap containing the dashboard. |
+| grafanaDashboard.labels | object | `{"grafana_dashboard":"1"}` | Labels that ConfigMaps should have to get configured in Grafana. |
+| grafanaDashboard.namespace | string | `""` | Allows overriding the namespace where the ConfigMap will be created, defaulting to the same one as the Release. |
+| grafanaDashboard.sidecarLabel | string | `""` | Label that ConfigMaps should have to be loaded as dashboards. DEPRECATED: Use labels instead. |
+| grafanaDashboard.sidecarLabelValue | string | `""` | Label value that ConfigMaps should have to be loaded as dashboards. DEPRECATED: Use labels instead. |
 | nameOverride | string | `""` |  |
-| namespace | string | `""` | Allows overriding the namespace where the ConfigMap will be created, defaulting to the same one as the Release. |
-| sidecarLabel | string | `"grafana_dashboard"` | Label that ConfigMaps should have to be loaded as dashboards. |
-| sidecarLabelValue | string | `"1"` | Label value that ConfigMaps should have to be loaded as dashboards. |
 
 [operator]: https://github.com/cloudnative-pg/charts/tree/main/charts/cloudnative-pg

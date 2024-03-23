@@ -15,12 +15,7 @@
                     "type": "string"
                 },
                 "labels": {
-                    "type": "object",
-                    "properties": {
-                        "grafana_dashboard": {
-                            "type": "string"
-                        }
-                    }
+                    "type": "object"
                 },
                 "namespace": {
                     "type": "string"

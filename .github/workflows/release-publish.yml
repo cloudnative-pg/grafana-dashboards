@@ -75,10 +75,10 @@ jobs:
             if [ -z "${pkg:-}" ]; then
               break
             fi
-            helm push "${pkg}" oci://ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts
+            helm push "${pkg}" oci://ghcr.io/"${GITHUB_REPOSITORY}"
             file=${pkg##*/}
             name=${file%-*}
             version=${file%.*}
             version=${version##*-}
-            cosign sign --yes ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts/"${name}":"${version}"
+            cosign sign --yes ghcr.io/"${GITHUB_REPOSITORY}"/"${name}":"${version}"
           done

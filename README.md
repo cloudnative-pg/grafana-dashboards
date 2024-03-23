@@ -5,7 +5,7 @@
 This repository contains the Grafana Dashboards distributed as Helm Charts so they can packaged as a dependency to other
 projects.
 
-In addition the repository ssyncs the dashboards to [Grafana.com](https://grafana.com/orgs/cloudnativepg).
+In addition, the repository syncs the dashboards to [Grafana.com](https://grafana.com/orgs/cloudnativepg).
 
 ## Repository
 

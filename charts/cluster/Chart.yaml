@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cluster
+description: CloudNativePG Grafana Cluster Dashboard.
+type: application
+version: 0.0.1
+appVersion: "1.16.0"

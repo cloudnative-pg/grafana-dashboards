@@ -1,6 +1,6 @@
 # Grafana Dashboards
 
-![Grafana CloudNativePG Cluster Overview](charts/cluster/images/overview.png)
+![Grafana CloudNativePG Cluster Overview](images/overview.png)
 
 This repository contains the Grafana Dashboards distributed as Helm Charts so they can packaged as a dependency to other
 projects.

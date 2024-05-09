@@ -9147,7 +9147,7 @@
         "type": "query"
       },
       {
-        "allValue": "$cluster-([1-9][0-9]*)$",
+        "allValue": "$cluster-([1-9][0-9]*)",
         "current": {},
         "datasource": {
           "type": "prometheus",

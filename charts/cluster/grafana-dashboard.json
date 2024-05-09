@@ -2651,7 +2651,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "cnpg_pg_database_size_bytes{namespace=\"$namespace\"}",
+          "expr": "cnpg_pg_database_size_bytes{namespace=\"$namespace\", pod=~\"$instances\"}",
           "format": "table",
           "instant": false,
           "legendFormat": "__auto",

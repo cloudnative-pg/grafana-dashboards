@@ -27,7 +27,8 @@ https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/main/charts/
 
 ```bash
 helm repo add cnpg-grafana https://cloudnative-pg.github.io/grafana-dashboards
-helm upgrade
+
+helm upgrade \
   --install \
   --namespace monitoring \
   cnpg-grafana-cluster cnpg-grafana/cluster

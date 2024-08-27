@@ -3511,7 +3511,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "kube_pod_info{namespace=~\"$namespace\", pod=~\"$instances\"} * on(node,instance) group_left(label_topology_kubernetes_io_zone) kube_node_labels",
+          "expr": "kube_pod_info{namespace=~\"$namespace\", pod=~\"$instances\"} * on(node,instance) group_left(label_topology_kubernetes_io_zone) sum(kube_node_labels) by (node,label_topology_kubernetes_io_zone)",
           "format": "table",
           "instant": true,
           "interval": "",

@@ -2511,7 +2511,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "Excluding cache",
+      "description": "Container memory working set",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -5218,7 +5218,7 @@
           "step": 10
         }
       ],
-      "title": "Memory Usage (w/o cache)",
+      "title": "Memory Usage (container memory working set)",
       "type": "timeseries"
     },
     {

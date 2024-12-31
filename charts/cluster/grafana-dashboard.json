@@ -7753,7 +7753,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "cnpg_pg_stat_bgwriter_checkpoints_req{namespace=~\"$namespace\",pod=~\"$instances\"}",
+              "expr": "{__name__=~\"cnpg_pg_stat_(bgwriter|checkpointer)_checkpoints_req\",namespace=~\"$namespace\",pod=~\"$instances\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -7768,7 +7768,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "cnpg_pg_stat_bgwriter_checkpoints_timed{namespace=~\"$namespace\",pod=~\"$instances\"}",
+              "expr": "{__name__=~\"cnpg_pg_stat_(bgwriter|checkpointer)_checkpoints_timed\",namespace=~\"$namespace\",pod=~\"$instances\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -7867,7 +7867,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "cnpg_pg_stat_bgwriter_checkpoint_write_time{namespace=~\"$namespace\",pod=~\"$instances\"}",
+              "expr": "{__name__=~\"cnpg_pg_stat_(bgwriter_checkpoint|checkpointer)_write_time\",namespace=~\"$namespace\",pod=~\"$instances\"}",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -7882,7 +7882,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "cnpg_pg_stat_bgwriter_checkpoint_sync_time{namespace=~\"$namespace\",pod=~\"$instances\"}",
+              "expr": "{__name__=~\"cnpg_pg_stat_(bgwriter_checkpoint|checkpointer)_sync_time\",namespace=~\"$namespace\",pod=~\"$instances\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,

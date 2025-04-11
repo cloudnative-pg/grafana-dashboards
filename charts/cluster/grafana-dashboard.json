@@ -2235,11 +2235,11 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum by (label_app_kubernetes_io_name) (kube_pod_status_ready{namespace=\"$operatorNamespace\"} * on (pod) group_left( label_app_kubernetes_io_name ) kube_pod_labels{label_app_kubernetes_io_name=~\"cloudnative-pg\"})",
+          "expr": "sum(kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+\", condition=\"true\"})",
           "hide": false,
-          "instant": false,
+          "instant": true,
           "legendFormat": "Operator Status",
-          "range": true,
+          "range": false,
           "refId": "A"
         }
       ],
@@ -2409,7 +2409,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "clamp_max(max(controller_runtime_reconcile_total{namespace=~\"$operatorNamespace\", result=\"error\", controller=\"scheduledbackup\"}), 1)",
+          "expr": "clamp_max(max(controller_runtime_reconcile_total{namespace=~\"$operatorNamespace\", result=\"error\", controller=~\"scheduledbackup|scheduled-backup\"}), 1)",
           "hide": true,
           "legendFormat": "__auto",
           "range": true,
@@ -8153,7 +8153,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(kube_pod_status_ready{namespace=\"$operatorNamespace\"} * on (pod) group_left( label_app_kubernetes_io_name ) kube_pod_labels{label_app_kubernetes_io_name=~\"cloudnative-pg\"})",
+              "expr": "sum(kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+\", condition=\"true\"})",
               "hide": false,
               "instant": true,
               "legendFormat": "Ready Operator Pods",
@@ -8456,7 +8456,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "max(controller_runtime_reconcile_total{namespace=~\"$operatorNamespace\", result=\"error\", controller=\"scheduledbackup\"})",
+              "expr": "max(controller_runtime_reconcile_total{namespace=~\"$operatorNamespace\", result=\"error\", controller=~\"scheduledbackup|scheduled-backup\"})",
               "hide": false,
               "instant": true,
               "legendFormat": "Scheduled Backup Reconcile Errors",
@@ -8674,7 +8674,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "sum(kube_pod_status_ready{namespace=\"$operatorNamespace\"} * on (pod) group_left( label_app_kubernetes_io_name ) kube_pod_labels{label_app_kubernetes_io_name=~\"cloudnative-pg\"})",
+              "expr": "sum(kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+\", condition=\"true\"})",
               "hide": false,
               "instant": false,
               "legendFormat": "Ready Operator Pods",
@@ -9060,7 +9060,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "max(controller_runtime_reconcile_total{namespace=~\"$operatorNamespace\", result=\"error\", controller=\"scheduledbackup\"})",
+              "expr": "max(controller_runtime_reconcile_total{namespace=~\"$operatorNamespace\", result=\"error\", controller=~\"scheduledbackup|scheduled-backup\"})",
               "hide": false,
               "instant": false,
               "legendFormat": "Scheduled Backup Reconcile Errors",
@@ -9237,7 +9237,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(controller_runtime_active_workers,namespace)",
+        "definition": "label_values(controller_runtime_active_workers{job=\"cnpg-system/cloudnative-pg-operator\"},namespace)",
         "description": "Namespace where the CNPG operator is located",
         "hide": 0,
         "includeAll": false,
@@ -9247,7 +9247,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(controller_runtime_active_workers,namespace)",
+          "query": "label_values(controller_runtime_active_workers{job=\"cnpg-system/cloudnative-pg-operator\"},namespace)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,

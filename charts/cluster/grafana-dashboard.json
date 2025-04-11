@@ -2235,7 +2235,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+\", condition=\"true\"}",
+          "expr": "sum(kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+\", condition=\"true\"})",
           "hide": false,
           "instant": true,
           "legendFormat": "Operator Status",
@@ -8153,7 +8153,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+\", condition=\"true\"}",
+              "expr": "sum(kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+\", condition=\"true\"})",
               "hide": false,
               "instant": true,
               "legendFormat": "Ready Operator Pods",
@@ -8674,7 +8674,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "editorMode": "code",
-              "expr": "kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+\", condition=\"true\"}",
+              "expr": "sum(kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+\", condition=\"true\"})",
               "hide": false,
               "instant": false,
               "legendFormat": "Ready Operator Pods",

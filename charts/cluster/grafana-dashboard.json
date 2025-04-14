@@ -8153,7 +8153,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+\", condition=\"true\"})",
+              "expr": "sum(kube_pod_status_ready{namespace=\"$operatorNamespace\", pod=~\"cloudnative-pg-operator.+|cnpg-controller-manager.+\", condition=\"true\"})",
               "hide": false,
               "instant": true,
               "legendFormat": "Ready Operator Pods",

@@ -1973,7 +1973,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "Base Backups are considered healthy when there has been at least one base backup in the last 24 hours.",
+      "description": "WAL is considered Healthy when the last WAL is 0min to 6min old, Delayed when it is less than 15min and Unsynced for >15min.",
       "fieldConfig": {
         "defaults": {
           "color": {

@@ -32,7 +32,7 @@ In order to create a new release of any chart, follow these steps:
 6. Commit and add the relevant information you wish in the commit message.
     ```bash
     git add .
-    git commit -S -s -m "Release $CHART_NAME-v$NEW_VERSION" --edit
+    git commit -S -s -m "Release $CHART_NAME-v$NEW_VERSION"
     ```
 7. Push the new branch
     ```bash

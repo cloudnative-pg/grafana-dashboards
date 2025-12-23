@@ -757,7 +757,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(cnpg_pg_stat_database_xact_commit{namespace=~\"$namespace\",pod=~\"$instances\"}[$__interval])) + sum(rate(cnpg_pg_stat_database_xact_rollback{namespace=~\"$namespace\",pod=~\"$instances\"}[$__interval]))",
+          "expr": "sum(rate(cnpg_pg_stat_database_xact_commit{namespace=~\"$namespace\",pod=~\"$instances\"}[$__rate_interval])) + sum(rate(cnpg_pg_stat_database_xact_rollback{namespace=~\"$namespace\",pod=~\"$instances\"}[$__rate_interval]))",
           "interval": "",
           "legendFormat": "TPS",
           "range": true,

@@ -5791,9 +5791,7 @@
   "targets": [
     {
       "editorMode": "code",
-      "expr": "(sum(rate(cnpg_pg_stat_database_blks_hit{datname!~"template.*",datname != "",pod=~"$instances",namespace="$namespace"}[5m])) by (datname) /
-(sum(rate(cnpg_pg_stat_database_blks_hit{datname!~"template.*",datname != "",pod=~"$instances",namespace="$namespace"}[5m])) by (datname) +
- sum(rate(cnpg_pg_stat_database_blks_read{datname!~"template.*",datname != "",pod=~"$instances",namespace="$namespace"}[5m])) by (datname)))*100",
+      "expr": "(sum(rate(cnpg_pg_stat_database_blks_hit{datname!~"template.*",datname != "",pod=~"$instances",namespace="$namespace"}[5m])) by (datname) / (sum(rate(cnpg_pg_stat_database_blks_hit{datname!~"template.*",datname != "",pod=~"$instances",namespace="$namespace"}[5m])) by (datname) + sum(rate(cnpg_pg_stat_database_blks_read{datname!~"template.*",datname != "",pod=~"$instances",namespace="$namespace"}[5m])) by (datname)))*100",
       "legendFormat": "__auto",
       "range": true,
       "refId": "A"

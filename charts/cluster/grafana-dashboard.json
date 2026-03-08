@@ -9299,7 +9299,7 @@
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
-        "regex": "/\\bcluster\\b=\"(?<text>[^\"]+)/g",
+        "regex": "/\\bexported_cluster\\b=\"(?<text>[^\"]+)/g",
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"

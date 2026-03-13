@@ -1973,7 +1973,7 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "description": "WAL is considered Healthy when the last WAL is 0min to 6min old, Delayed when it is less than 15min and Unsynced for >15min.",
+      "description": "WAL is considered Healthy when the last WAL is 0min to 6min old, Delayed when it is less than 15min and Unsynced for >15min. Idle databases with no pending WAL files are shown as Healthy.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2133,7 +2133,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "max((1 - cnpg_pg_replication_in_recovery{namespace=~\"$namespace\", pod=~\"$instances\"}) * (time() - timestamp(cnpg_pg_stat_archiver_seconds_since_last_archival{namespace=~\"$namespace\", pod=~\"$instances\"}) +\ncnpg_pg_stat_archiver_seconds_since_last_archival{namespace=~\"$namespace\", pod=~\"$instances\"}))",
+          "expr": "max((1 - cnpg_pg_replication_in_recovery{namespace=~\"$namespace\", pod=~\"$instances\"}) * (time() - timestamp(cnpg_pg_stat_archiver_seconds_since_last_archival{namespace=~\"$namespace\", pod=~\"$instances\"}) +\ncnpg_pg_stat_archiver_seconds_since_last_archival{namespace=~\"$namespace\", pod=~\"$instances\"})\n* on(pod, namespace) group_left()\n(cnpg_collector_pg_wal_archive_status{namespace=~\"$namespace\", pod=~\"$instances\", value=\"ready\"} > bool 0))",
           "hide": false,
           "instant": false,
           "legendFormat": "WAL",

@@ -17,3 +17,7 @@ schema: cluster-schema ## Generate charts' schema using helm-schema-gen
 cluster-schema:
 	@helm schema-gen charts/cluster/values.yaml | cat > charts/cluster/values.schema.json || \
 		(echo "Please, run: helm plugin install https://github.com/karuppiah7890/helm-schema-gen.git" && exit 1)
+
+.PHONY: dashboard
+dashboard: ## Regenerate the cluster Grafana dashboard JSON from its grafanalib source
+	@cd charts/cluster/dashboard && uv sync && uv run main.py

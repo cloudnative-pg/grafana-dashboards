@@ -1,15 +1,23 @@
 """Storage & I/O row (collapsed).
 
-Transcribed verbatim from the original grafana-dashboard.json (panel indices 58-58).
+Transcribed from the original grafana-dashboard.json (panel indices 58-58), rewritten
+using grafanalib's typed panel classes where they cleanly model this dashboard's
+(modern) panel schema. Panel types where grafanalib only models an older/incompatible
+Grafana schema are kept as plain dicts (see inline notes).
 """
 
+from grafanalib.core import GridPos, RowPanel, TimeSeries
+
 panels = [
-    {
-        "collapsed": True,
-        "datasource": {"uid": "prometheus"},
-        "gridPos": {"h": 1, "w": 24, "x": 0, "y": 51},
-        "id": 35,
-        "panels": [
+    RowPanel(
+        title="Storage & I/O",
+        dataSource={"uid": "prometheus"},
+        gridPos=GridPos(h=1, w=24, x=0, y=51),
+        id=35,
+        targets=[{"datasource": {"uid": "prometheus"}, "refId": "A"}],
+        collapsed=True,
+        panels=[
+            # NOTE: kept as a raw dict -- grafanalib's GaugePanel class still emits the legacy single-stat 'fieldConfig.defaults.calcs/override' shape, not the modern gauge panel schema used here.
             {
                 "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
                 "fieldConfig": {
@@ -82,6 +90,7 @@ panels = [
                 "transformations": [],
                 "type": "gauge",
             },
+            # NOTE: kept as a raw dict -- grafanalib's GaugePanel class still emits the legacy single-stat 'fieldConfig.defaults.calcs/override' shape, not the modern gauge panel schema used here.
             {
                 "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
                 "fieldConfig": {
@@ -154,6 +163,7 @@ panels = [
                 "transformations": [],
                 "type": "gauge",
             },
+            # NOTE: kept as a raw dict -- grafanalib's GaugePanel class still emits the legacy single-stat 'fieldConfig.defaults.calcs/override' shape, not the modern gauge panel schema used here.
             {
                 "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
                 "fieldConfig": {
@@ -217,60 +227,12 @@ panels = [
                 "transformations": [],
                 "type": "gauge",
             },
-            {
-                "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {"mode": "palette-classic"},
-                        "custom": {
-                            "axisBorderShow": False,
-                            "axisCenteredZero": False,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "barAlignment": 0,
-                            "drawStyle": "line",
-                            "fillOpacity": 10,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": False,
-                                "tooltip": False,
-                                "viz": False,
-                            },
-                            "insertNulls": False,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {"type": "linear"},
-                            "showPoints": "never",
-                            "spanNulls": True,
-                            "stacking": {"group": "A", "mode": "none"},
-                            "thresholdsStyle": {"mode": "off"},
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {"color": "green"},
-                                {"color": "red", "value": 80},
-                            ],
-                        },
-                        "unitScale": True,
-                    },
-                    "overrides": [],
-                },
-                "gridPos": {"h": 8, "w": 12, "x": 0, "y": 67},
-                "id": 44,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": True,
-                    },
-                    "tooltip": {"mode": "multi", "sort": "none"},
-                },
-                "targets": [
+            TimeSeries(
+                title="Tuple I/O [5m]",
+                dataSource={"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+                gridPos=GridPos(h=8, w=12, x=0, y=67),
+                id=44,
+                targets=[
                     {
                         "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
                         "editorMode": "code",
@@ -326,63 +288,64 @@ panels = [
                         "refId": "E",
                     },
                 ],
-                "title": "Tuple I/O [5m]",
-                "type": "timeseries",
-            },
-            {
-                "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {"mode": "palette-classic"},
-                        "custom": {
-                            "axisBorderShow": False,
-                            "axisCenteredZero": False,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "barAlignment": 0,
-                            "drawStyle": "line",
-                            "fillOpacity": 10,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": False,
-                                "tooltip": False,
-                                "viz": False,
+                extraJson={
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {"mode": "palette-classic"},
+                            "custom": {
+                                "axisBorderShow": False,
+                                "axisCenteredZero": False,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "drawStyle": "line",
+                                "fillOpacity": 10,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": False,
+                                    "tooltip": False,
+                                    "viz": False,
+                                },
+                                "insertNulls": False,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 1,
+                                "pointSize": 5,
+                                "scaleDistribution": {"type": "linear"},
+                                "showPoints": "never",
+                                "spanNulls": True,
+                                "stacking": {"group": "A", "mode": "none"},
+                                "thresholdsStyle": {"mode": "off"},
                             },
-                            "insertNulls": False,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {"type": "linear"},
-                            "showPoints": "never",
-                            "spanNulls": True,
-                            "stacking": {"group": "A", "mode": "none"},
-                            "thresholdsStyle": {"mode": "off"},
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {"color": "green"},
+                                    {"color": "red", "value": 80},
+                                ],
+                            },
+                            "unitScale": True,
                         },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {"color": "green"},
-                                {"color": "red", "value": 80},
-                            ],
+                        "overrides": [],
+                    },
+                    "options": {
+                        "legend": {
+                            "calcs": [],
+                            "displayMode": "list",
+                            "placement": "bottom",
+                            "showLegend": True,
                         },
-                        "unitScale": True,
+                        "tooltip": {"mode": "multi", "sort": "none"},
                     },
-                    "overrides": [],
                 },
-                "gridPos": {"h": 8, "w": 12, "x": 12, "y": 67},
-                "id": 46,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": True,
-                    },
-                    "tooltip": {"mode": "multi", "sort": "none"},
-                },
-                "targets": [
+            ),
+            TimeSeries(
+                title="Block I/O [5m]",
+                dataSource={"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+                gridPos=GridPos(h=8, w=12, x=12, y=67),
+                id=46,
+                targets=[
                     {
                         "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
                         "editorMode": "code",
@@ -405,62 +368,64 @@ panels = [
                         "refId": "B",
                     },
                 ],
-                "title": "Block I/O [5m]",
-                "type": "timeseries",
-            },
-            {
-                "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {"mode": "palette-classic"},
-                        "custom": {
-                            "axisBorderShow": False,
-                            "axisCenteredZero": False,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "barAlignment": 0,
-                            "drawStyle": "line",
-                            "fillOpacity": 10,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": False,
-                                "tooltip": False,
-                                "viz": False,
+                extraJson={
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {"mode": "palette-classic"},
+                            "custom": {
+                                "axisBorderShow": False,
+                                "axisCenteredZero": False,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "drawStyle": "line",
+                                "fillOpacity": 10,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": False,
+                                    "tooltip": False,
+                                    "viz": False,
+                                },
+                                "insertNulls": False,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 1,
+                                "pointSize": 5,
+                                "scaleDistribution": {"type": "linear"},
+                                "showPoints": "never",
+                                "spanNulls": True,
+                                "stacking": {"group": "A", "mode": "none"},
+                                "thresholdsStyle": {"mode": "off"},
                             },
-                            "insertNulls": False,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {"type": "linear"},
-                            "showPoints": "never",
-                            "spanNulls": True,
-                            "stacking": {"group": "A", "mode": "none"},
-                            "thresholdsStyle": {"mode": "off"},
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {"color": "green"},
+                                    {"color": "red", "value": 80},
+                                ],
+                            },
+                            "unitScale": True,
                         },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [{"color": "green"}],
+                        "overrides": [],
+                    },
+                    "options": {
+                        "legend": {
+                            "calcs": [],
+                            "displayMode": "list",
+                            "placement": "bottom",
+                            "showLegend": True,
                         },
-                        "unit": "decbytes",
-                        "unitScale": True,
+                        "tooltip": {"mode": "multi", "sort": "none"},
                     },
-                    "overrides": [],
                 },
-                "gridPos": {"h": 8, "w": 12, "x": 0, "y": 75},
-                "id": 22,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": True,
-                    },
-                    "tooltip": {"mode": "multi", "sort": "none"},
-                },
-                "pluginVersion": "8.0.5",
-                "targets": [
+            ),
+            TimeSeries(
+                title="Database Size",
+                dataSource={"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+                gridPos=GridPos(h=8, w=12, x=0, y=75),
+                id=22,
+                targets=[
                     {
                         "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
                         "editorMode": "code",
@@ -473,64 +438,63 @@ panels = [
                         "refId": "A",
                     }
                 ],
-                "title": "Database Size",
-                "type": "timeseries",
-            },
-            {
-                "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {"mode": "palette-classic"},
-                        "custom": {
-                            "axisBorderShow": False,
-                            "axisCenteredZero": False,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "barAlignment": 0,
-                            "drawStyle": "line",
-                            "fillOpacity": 10,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": False,
-                                "tooltip": False,
-                                "viz": False,
+                extraJson={
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {"mode": "palette-classic"},
+                            "custom": {
+                                "axisBorderShow": False,
+                                "axisCenteredZero": False,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "drawStyle": "line",
+                                "fillOpacity": 10,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": False,
+                                    "tooltip": False,
+                                    "viz": False,
+                                },
+                                "insertNulls": False,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 1,
+                                "pointSize": 5,
+                                "scaleDistribution": {"type": "linear"},
+                                "showPoints": "never",
+                                "spanNulls": True,
+                                "stacking": {"group": "A", "mode": "none"},
+                                "thresholdsStyle": {"mode": "off"},
                             },
-                            "insertNulls": False,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {"type": "linear"},
-                            "showPoints": "never",
-                            "spanNulls": True,
-                            "stacking": {"group": "A", "mode": "none"},
-                            "thresholdsStyle": {"mode": "off"},
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [{"color": "green"}],
+                            },
+                            "unit": "decbytes",
+                            "unitScale": True,
                         },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {"color": "green"},
-                                {"color": "red", "value": 80},
-                            ],
+                        "overrides": [],
+                    },
+                    "options": {
+                        "legend": {
+                            "calcs": [],
+                            "displayMode": "list",
+                            "placement": "bottom",
+                            "showLegend": True,
                         },
-                        "unit": "decbytes",
-                        "unitScale": True,
+                        "tooltip": {"mode": "multi", "sort": "none"},
                     },
-                    "overrides": [],
+                    "pluginVersion": "8.0.5",
                 },
-                "gridPos": {"h": 8, "w": 12, "x": 12, "y": 75},
-                "id": 2,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": True,
-                    },
-                    "tooltip": {"mode": "multi", "sort": "none"},
-                },
-                "targets": [
+            ),
+            TimeSeries(
+                title="Temp Bytes [5m]",
+                dataSource={"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+                gridPos=GridPos(h=8, w=12, x=12, y=75),
+                id=2,
+                targets=[
                     {
                         "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
                         "exemplar": True,
@@ -541,12 +505,59 @@ panels = [
                         "refId": "A",
                     }
                 ],
-                "title": "Temp Bytes [5m]",
-                "type": "timeseries",
-            },
+                extraJson={
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {"mode": "palette-classic"},
+                            "custom": {
+                                "axisBorderShow": False,
+                                "axisCenteredZero": False,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "drawStyle": "line",
+                                "fillOpacity": 10,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": False,
+                                    "tooltip": False,
+                                    "viz": False,
+                                },
+                                "insertNulls": False,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 1,
+                                "pointSize": 5,
+                                "scaleDistribution": {"type": "linear"},
+                                "showPoints": "never",
+                                "spanNulls": True,
+                                "stacking": {"group": "A", "mode": "none"},
+                                "thresholdsStyle": {"mode": "off"},
+                            },
+                            "mappings": [],
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {"color": "green"},
+                                    {"color": "red", "value": 80},
+                                ],
+                            },
+                            "unit": "decbytes",
+                            "unitScale": True,
+                        },
+                        "overrides": [],
+                    },
+                    "options": {
+                        "legend": {
+                            "calcs": [],
+                            "displayMode": "list",
+                            "placement": "bottom",
+                            "showLegend": True,
+                        },
+                        "tooltip": {"mode": "multi", "sort": "none"},
+                    },
+                },
+            ),
         ],
-        "targets": [{"datasource": {"uid": "prometheus"}, "refId": "A"}],
-        "title": "Storage & I/O",
-        "type": "row",
-    }
+    ),
 ]

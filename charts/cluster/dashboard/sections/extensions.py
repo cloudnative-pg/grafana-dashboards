@@ -1,14 +1,21 @@
 """Extensions row (collapsed).
 
-Transcribed verbatim from the original grafana-dashboard.json (panel indices 64-64).
+Transcribed from the original grafana-dashboard.json (panel indices 64-64), rewritten
+using grafanalib's typed panel classes where they cleanly model this dashboard's
+(modern) panel schema. Panel types where grafanalib only models an older/incompatible
+Grafana schema are kept as plain dicts (see inline notes).
 """
 
+from grafanalib.core import GridPos, RowPanel
+
 panels = [
-    {
-        "collapsed": True,
-        "gridPos": {"h": 1, "w": 24, "x": 0, "y": 57},
-        "id": 794,
-        "panels": [
+    RowPanel(
+        title="Extensions",
+        gridPos=GridPos(h=1, w=24, x=0, y=57),
+        id=794,
+        collapsed=True,
+        panels=[
+            # NOTE: kept as a raw dict -- grafanalib's Table class emits a legacy top-level 'color'/'columns'/'mappings' shape that predates this panel's modern fieldConfig-based schema.
             {
                 "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
                 "description": "Show the installed extensions and their versions",
@@ -96,29 +103,27 @@ panels = [
                         "id": "organize",
                         "options": {
                             "excludeByName": {"Time": True},
+                            "includeByName": {},
                             "indexByName": {
                                 "Time": 0,
-                                "extname": 1,
+                                "Value": 5,
                                 "datname": 2,
                                 "default_version": 3,
+                                "extname": 1,
                                 "installed_version": 4,
-                                "Value": 5,
                             },
                             "renameByName": {
-                                "default_version": "Default " "Version",
+                                "Value": "Update Available",
                                 "datname": "Database",
+                                "default_version": "Default Version",
                                 "extname": "Extension",
                                 "installed_version": "Installed " "Version",
-                                "Value": "Update Available",
                             },
-                            "includeByName": {},
                         },
                     },
                 ],
                 "type": "table",
-            }
+            },
         ],
-        "title": "Extensions",
-        "type": "row",
-    }
+    ),
 ]

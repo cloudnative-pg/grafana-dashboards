@@ -17,18 +17,35 @@ section/row so it's easier to review and maintain:
 | [backups.py](backups.py) | Backups |
 | [checkpoints.py](checkpoints.py) | Checkpoints |
 | [extensions.py](extensions.py) | Extensions |
-| [operator_row.py](operator_row.py) | Operator |
+| [operator.py](operator.py) | Operator |
 | [cluster.dashboard.py](cluster.dashboard.py) | Entry point wiring every section together |
 
-Every panel is transcribed **verbatim** (as plain Python data, not
-grafanalib's typed panel classes) from the original JSON export. This
-dashboard relies on many modern Grafana panel/fieldConfig features (value and
-range mappings, per-field overrides, transformations, panel links, library
-elements, ...) that grafanalib's higher-level classes (`Stat`, `TimeSeries`,
-`GaugePanel`, ...) don't fully model, so building the panels through that
-layer would risk silently changing behaviour. Using plain data keeps the
-generated JSON byte-for-byte equivalent to the original while still using
-grafanalib's project conventions and tooling to assemble and generate it.
+Every panel is built with grafanalib's typed panel classes (`Stat`,
+`TimeSeries`, `Text`, `RowPanel`, `GridPos`, ...) where those classes cleanly
+model this dashboard's modern (schemaVersion 39) panel/fieldConfig schema.
+Fields those classes don't expose as constructor arguments (value/range
+mappings, per-field overrides, transformations, axis/legend/tooltip options,
+...) are passed through grafanalib's documented `extraJson` mechanism, which
+deep-merges the exact original sub-structures on top of what the class
+generates, so no query, threshold, mapping or option is lost or altered.
+
+A handful of panel types are kept as plain dicts instead, because
+grafanalib's class for them targets an older/incompatible Grafana schema and
+has no way to reproduce the modern one (see the `NOTE:` comment above each):
+`alertlist` (`AlertList` targets the legacy alert list schema and has no
+`extraJson`), `gauge`/`bargauge` (`GaugePanel`/`BarGauge` still emit the
+legacy single-stat `fieldOptions` shape), `table` (legacy top-level
+`color`/`columns`/`mappings` shape) and `heatmap` (the old Angular heatmap
+panel shape).
+
+Because grafanalib's typed classes always emit their own fixed set of
+default-valued fields (e.g. `cacheTimeout`, `error`, `transparent`,
+`maxDataPoints`, empty `links`/`transformations`, ...) even when the original
+export omits them, the regenerated JSON is a strict **superset** of the
+original: every original key/value is preserved unchanged, but some
+additional default-valued keys appear that Grafana already assumes anyway
+when absent. This was verified panel-by-panel (recursive diff finding zero
+missing or changed values, only additions) before adopting this approach.
 
 ## Regenerating the dashboard JSON
 

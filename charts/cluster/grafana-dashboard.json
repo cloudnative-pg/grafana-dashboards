@@ -1,86 +1,86 @@
 {
+  "__elements": {},
   "__inputs": [
     {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
       "description": "",
-      "type": "datasource",
+      "label": "Prometheus",
+      "name": "DS_PROMETHEUS",
       "pluginId": "prometheus",
-      "pluginName": "Prometheus"
+      "pluginName": "Prometheus",
+      "type": "datasource"
     },
     {
-      "name": "DS_EXPRESSION",
-      "label": "Expression",
       "description": "",
-      "type": "datasource",
-      "pluginId": "__expr__"
+      "label": "Expression",
+      "name": "DS_EXPRESSION",
+      "pluginId": "__expr__",
+      "type": "datasource"
     }
   ],
-  "__elements": {},
   "__requires": [
     {
-      "type": "datasource",
       "id": "__expr__",
+      "type": "datasource",
       "version": "1.0.0"
     },
     {
-      "type": "panel",
       "id": "alertlist",
       "name": "Alert list",
+      "type": "panel",
       "version": ""
     },
     {
-      "type": "panel",
       "id": "bargauge",
       "name": "Bar gauge",
+      "type": "panel",
       "version": ""
     },
     {
-      "type": "panel",
       "id": "gauge",
       "name": "Gauge",
+      "type": "panel",
       "version": ""
     },
     {
-      "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
+      "type": "grafana",
       "version": "10.3.3"
     },
     {
-      "type": "panel",
       "id": "heatmap",
       "name": "Heatmap",
+      "type": "panel",
       "version": ""
     },
     {
-      "type": "datasource",
       "id": "prometheus",
       "name": "Prometheus",
+      "type": "datasource",
       "version": "1.0.0"
     },
     {
-      "type": "panel",
       "id": "stat",
       "name": "Stat",
+      "type": "panel",
       "version": ""
     },
     {
-      "type": "panel",
       "id": "table",
       "name": "Table",
+      "type": "panel",
       "version": ""
     },
     {
-      "type": "panel",
       "id": "text",
       "name": "Text",
+      "type": "panel",
       "version": ""
     },
     {
-      "type": "panel",
       "id": "timeseries",
       "name": "Time series",
+      "type": "panel",
       "version": ""
     }
   ],
@@ -275,15 +275,15 @@
           "mappings": [
             {
               "options": {
-                "0": {
-                  "color": "green",
-                  "index": 1,
-                  "text": "Healthy"
-                },
                 "-1": {
                   "color": "red",
                   "index": 0,
                   "text": "None"
+                },
+                "0": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "Healthy"
                 }
               },
               "type": "value"
@@ -7374,7 +7374,7 @@
               "color": "rgba(255,0,255,0.7)"
             },
             "filterValues": {
-              "le": 1e-9
+              "le": 1e-09
             },
             "legend": {
               "show": false
@@ -8038,22 +8038,22 @@
                 "excludeByName": {
                   "Time": true
                 },
+                "includeByName": {},
                 "indexByName": {
                   "Time": 0,
-                  "extname": 1,
+                  "Value": 5,
                   "datname": 2,
                   "default_version": 3,
-                  "installed_version": 4,
-                  "Value": 5
+                  "extname": 1,
+                  "installed_version": 4
                 },
                 "renameByName": {
-                  "default_version": "Default Version",
+                  "Value": "Update Available",
                   "datname": "Database",
+                  "default_version": "Default Version",
                   "extname": "Extension",
-                  "installed_version": "Installed Version",
-                  "Value": "Update Available"
-                },
-                "includeByName": {}
+                  "installed_version": "Installed Version"
+                }
               }
             }
           ],

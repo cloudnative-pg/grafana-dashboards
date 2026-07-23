@@ -7630,7 +7630,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "{__name__=~\"cnpg_collector_first_recoverability_point|barman_cloud_cloudnative_pg_io_first_recoverability_point\",namespace=~\"$namespace\",pod=~\"$instances\"}*1000 > 0",
+              "expr": "max({__name__=~\"cnpg_collector_first_recoverability_point|barman_cloud_cloudnative_pg_io_first_recoverability_point\",namespace=~\"$namespace\",pod=~\"$instances\"})*1000 > 0",
               "format": "time_series",
               "interval": "",
               "legendFormat": "{{pod}}",

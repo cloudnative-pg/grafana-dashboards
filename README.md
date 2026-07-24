@@ -18,11 +18,11 @@ helm repo add cnpg-grafana https://cloudnative-pg.github.io/grafana-dashboards
 
 If you want to use our OCI registry, signed by [cosign](https://github.com/sigstore/cosign), here is an example:
 
-```bash
+```yaml
 dependencies:
-  - name: cnpg-grafana-cluster
-    version: "0.0"
-    repository: "oci://ghcr.io/cloudnative-pg/grafana-dashboards/cluster"
+  - name: cluster
+    version: "0.0.5"
+    repository: "oci://ghcr.io/cloudnative-pg/grafana-dashboards"
 ```
 
 ### Provenance
